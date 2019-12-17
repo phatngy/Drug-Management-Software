@@ -200,7 +200,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String sql = "SELECT * FROM Account WHERE UserName=? and PassWord=?";
+        String sql = "SELECT * FROM Employee WHERE UserName=? and PassWord=?";
         if(CheckNull())
             try{
                 pst = managedrug.ManageDrug.connect.conn.prepareStatement(sql);

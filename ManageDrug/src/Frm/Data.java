@@ -148,8 +148,8 @@ public class Data extends javax.swing.JFrame {
     }
     
     private boolean CheckPosition(){
-        boolean kq=true;
-        String sqlCheck="SELECT * FROM Position";
+        boolean kq = true;
+        String sqlCheck = "SELECT * FROM Position";
         try{
             pst = conn.prepareStatement(sqlCheck);
             rs = pst.executeQuery();
@@ -167,7 +167,7 @@ public class Data extends javax.swing.JFrame {
     
     
     private boolean CheckComponent(){
-        boolean kq=true;
+        boolean kq = true;
         String sqlCheck="SELECT * FROM MainComponent";
         try{
             pst=conn.prepareStatement(sqlCheck);
@@ -217,12 +217,12 @@ public class Data extends javax.swing.JFrame {
     
     private void addPosition(){
         if(checkNullPosition()){
-            String sqlInsert="INSERT INTO Position (Position,Payroll) VALUES(?,?,?)";
+            String sqlInsert="INSERT INTO Position (Position,Payroll) VALUES(?,?)";
             try{
                 pst=conn.prepareStatement(sqlInsert);
                 
                 pst.setString(1, txbPosition.getText());
-                pst.setString(2, txbPayroll.getText()+" "+"VND");
+                pst.setString(2, txbPayroll.getText());
                 pst.executeUpdate();
                 lblStatus.setText("Thêm Chức vụ thành công!");
                 DisabledPosition();
@@ -238,13 +238,14 @@ public class Data extends javax.swing.JFrame {
     
     private void addClassify(){
         if(checkNullComponent()){
-            String sqlInsert="INSERT INTO MainComponent (ID_Component, NameMainComponent, virtue) VALUES(?,?,?)";
+            String sqlInsert = "INSERT INTO MainComponent (ID_Component, NameMainComponent, virtue) VALUES(?,?,?)";
             try{
                 pst=conn.prepareStatement(sqlInsert);
                 pst.setString(1, txbIDComponent.getText());
                 pst.setString(2, txbNameComponent.getText());
+                pst.setString(3, txbVirtue.getText());
                 pst.executeUpdate();
-                lblStatus.setText("Thêm loại linh kiện thành công!");
+                lblStatus.setText("Thêm thành phần thành công!");
                 DisabledComponent();
                 Refresh();
                 loadComponent(sql3);
@@ -259,7 +260,7 @@ public class Data extends javax.swing.JFrame {
         int Click=tablePosition.getSelectedRow();
         TableModel model=tablePosition.getModel();
         if(checkNullPosition()){
-            String sqlChange="UPDATE Position SET Position=?,Payroll=? WHERE Position='"+model.getValueAt(Click,0).toString().trim()+"'";
+            String sqlChange = "UPDATE Position SET Position=?,Payroll=? WHERE Position='"+model.getValueAt(Click,0).toString().trim()+"'";
             try{
                 pst=conn.prepareStatement(sqlChange);
                 
@@ -822,7 +823,7 @@ public class Data extends javax.swing.JFrame {
 
     private void tableComponentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableComponentMouseClicked
         int Click=tableComponent.getSelectedRow();
-        TableModel model=tableComponent.getModel();
+        TableModel model = tableComponent.getModel();
 
         txbIDComponent.setText(model.getValueAt(Click,0).toString());
         txbNameComponent.setText(model.getValueAt(Click,1).toString());
@@ -830,6 +831,7 @@ public class Data extends javax.swing.JFrame {
 
         btnChangeClassify.setEnabled(true);
         btnDeleteClassify.setEnabled(true);
+        btnAddClassify.setEnabled(false);
     }//GEN-LAST:event_tableComponentMouseClicked
 
     private void btnRefreshClassifyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshClassifyMouseClicked
@@ -861,7 +863,7 @@ public class Data extends javax.swing.JFrame {
             try{
                 pst=conn.prepareStatement(sqlDelete);
                 pst.setString(1, txbIDComponent.getText());
-                pst.setString(2,txbNameComponent.getText() );
+                pst.setString(2, txbNameComponent.getText() );
                 pst.executeUpdate();
                 lblStatus.setText("Xóa loại nhà sản xuất thành công!");
                 DisabledComponent();

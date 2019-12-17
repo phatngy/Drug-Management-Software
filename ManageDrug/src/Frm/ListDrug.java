@@ -201,10 +201,9 @@ public class ListDrug extends javax.swing.JFrame {
                 pst.setDate(4, new java.sql.Date(date.getDate().getTime()));
                 pst.setInt(5, Integer.parseInt(txbQuantity.getText()));
                 pst.setString(6, String.valueOf(this.txbUnit.getText()));
-                pst.setString(7, txbPrice.getText()+" "+"VND");
+                pst.setString(7, txbPrice.getText());
                 
-//              pst.setString(4,String.valueOf(cbxVirtue.getSelectedItem()));
-
+                
                 pst.executeUpdate();
                 lblStatus.setText("Thêm sản phẩm thành công!");
                 Disabled();
