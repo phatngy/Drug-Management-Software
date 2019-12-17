@@ -154,7 +154,7 @@ class Sale extends javax.swing.JFrame implements Runnable {
     }
        
     private String getID_NV(){
-        String sql = "SELECT * FROM Account WHERE UserName = '"+detail.getUser() +"'";
+        String sql = "SELECT * FROM Employee WHERE UserName = '"+detail.getUser() +"'";
         String ID_NV = null;
         try{
             Statement st = conn.createStatement();
@@ -168,29 +168,29 @@ class Sale extends javax.swing.JFrame implements Runnable {
         return ID_NV;
         
     }    
-    private void addBill() {
-        
-        String sqlInsert = "INSERT INTO Bill (ID_Bill, ID_NV, Time, Date, Total) VALUES(?,?,?,?,?)";
-        String ID_NV = getID_NV();
-        try{
-
-            pst = conn.prepareStatement(sqlInsert);
-            pst.setString(1, String.valueOf(txbIDBill.getText()));
-            pst.setString(2, ID_NV);
-            pst.setString(3, lblTime.getText());
-            pst.setDate(4,new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(lblDate.getText()).getTime()));
-            pst.setString(5, lbltotalMoney.getText());
-            pst.executeUpdate();
-            lblStatus.setText("Thanh Toán Và Thêm Hoá Đơn Thành Công!");
-
-            Disabled();
-            Sucessful();
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-        
-    }
+//    private void addBill() {
+//        
+//        String sqlInsert = "INSERT INTO Bill (ID_Bill, ID_NV, Time, Date, Total) VALUES(?,?,?,?,?)";
+//        String ID_NV = getID_NV();
+//        try{
+//
+//            pst = conn.prepareStatement(sqlInsert);
+//            pst.setString(1, String.valueOf(txbIDBill.getText()));
+//            pst.setString(2, ID_NV);
+//            pst.setString(3, lblTime.getText());
+//            pst.setDate(4,new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(lblDate.getText()).getTime()));
+//            pst.setString(5, lbltotalMoney.getText());
+//            pst.executeUpdate();
+//            lblStatus.setText("Thanh Toán Và Thêm Hoá Đơn Thành Công!");
+//
+//            Disabled();
+//            Sucessful();
+//        }
+//        catch(Exception ex){
+//            ex.printStackTrace();
+//        }
+//        
+//    }
 
     private void LoadComponent(){
         String sql = "SELECT * FROM MainComponent";
@@ -332,11 +332,11 @@ class Sale extends javax.swing.JFrame implements Runnable {
     }
     private String TotalMoneyAdd(){
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        return formatter.format(convertedToNumbers(txbIntoMoney.getText())+convertedToNumbers(lbltotalMoney.getText()));
+        return formatter.format(convertedToNumbers(txbIntoMoney.getText())*1000+convertedToNumbers(lbltotalMoney.getText())*1000);
     }
     private String TotalMoneySub(){
             DecimalFormat formatter = new DecimalFormat("###,###,###");
-            return formatter.format(convertedToNumbers(lbltotalMoney.getText())- convertedToNumbers(txbIntoMoney.getText()));
+            return formatter.format(convertedToNumbers(lbltotalMoney.getText())*1000 - convertedToNumbers(txbIntoMoney.getText())*1000);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -923,12 +923,25 @@ class Sale extends javax.swing.JFrame implements Runnable {
             txbIDBill.setEnabled(false);
             btnCheckIDBill.setEnabled(false);
         }
-        else
+        else{
             lblStatus.setText("Hoá Đơn Tồn Tại! Hãy Nhập Lại!!");
+            txbIDBill.setEnabled(true);
+            btnCheckIDBill.setEnabled(true);
+        }
     }//GEN-LAST:event_btnCheckIDBillActionPerformed
 
+    private String updateMoney(){
+        int Click = tableBill.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tableBill.getModel();
+        
+        double t1 = convertedToNumbers(lbltotalMoney.getText());
+        double t2 = convertedToNumbers(model.getValueAt(Click , 0).toString());
+        double t3 = convertedToNumbers(txbIntoMoney.getText());
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(t1 - t2 + t3);
+    }
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-       String sqlChange = "UPDATE BillDetail SET Amount=? WHERE ID_Bill = '"+txbIDBill.getText()+"' ID_Drug = '" + txbIDDrug.getText()+"'";
+       String sqlChange = "UPDATE BillDetail SET Amount=? WHERE ID_Bill = '"+txbIDBill.getText()+"' AND ID_Drug = '" + txbIDDrug.getText()+"'";
         try{
             pst = conn.prepareStatement(sqlChange);
             pst.setInt(1, Integer.parseInt(this.txbAmount.getText()));
@@ -937,7 +950,7 @@ class Sale extends javax.swing.JFrame implements Runnable {
             lblStatus.setText("Lưu thay đổi thành công!");
             changeDrug();
             tableBill.clearSelection();
-            
+            updateMoney();
             btnAdd.setEnabled(true);
             btnPay.setEnabled(true);
             btnNew.setEnabled(false);
@@ -958,7 +971,7 @@ class Sale extends javax.swing.JFrame implements Runnable {
         if(Click == JOptionPane.YES_OPTION){
             try{ 
                 lbltotalMoney.setText("0");
-                tableBill.removeAll();
+                clearTable();
                 btnAdd.setEnabled(true);
                 cbxComponent.removeAllItems();
                 cbxComponent.setEnabled(true);
@@ -988,6 +1001,10 @@ class Sale extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_btnPrintActionPerformed
 
+    private void clearTable(){
+        tableBill.setModel(new DefaultTableModel(null, new String []{"Mã Thuốc", "Tên Thuốc", "Số Lượng", "Tiền"}));
+        
+    }
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         
         if(tableBill.getRowCount()!=0){
@@ -1007,11 +1024,13 @@ class Sale extends javax.swing.JFrame implements Runnable {
                 Disabled();
     
                 consistency();
+//                clearTable();
                 cbxComponent.removeAllItems();
                 btnPrint.setEnabled(true);
                 btnNew.setEnabled(true);
                 btnAdd.setEnabled(false);
                 btnPay.setEnabled(false);
+                
             }
             catch(Exception ex){
                 ex.printStackTrace();
