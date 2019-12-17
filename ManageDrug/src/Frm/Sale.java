@@ -983,6 +983,7 @@ class Sale extends javax.swing.JFrame implements Runnable {
         if(Click == JOptionPane.YES_OPTION){
             try{ 
                 lbltotalMoney.setText("0");
+                txbAmount.setText("");
                 
                 clearTable();
                 btnAdd.setEnabled(true);

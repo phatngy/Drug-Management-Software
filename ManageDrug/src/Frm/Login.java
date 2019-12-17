@@ -139,6 +139,11 @@ public class Login extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                btnLoginKeyTyped(evt);
+            }
+        });
 
         btnForgetPass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnForgetPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ChangePass.png"))); // NOI18N
@@ -263,6 +268,10 @@ public class Login extends javax.swing.JFrame {
     private void userNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userNameActionPerformed
+
+    private void btnLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginKeyTyped
 
     /**
      * @param args the command line arguments
