@@ -214,7 +214,8 @@ class Sale extends javax.swing.JFrame implements Runnable {
         model.setValueAt(cbxDrug.getSelectedItem().toString(), Click, 1);
         model.setValueAt(txbAmount.getText(), Click, 2);
         model.setValueAt(txbIntoMoney.getText(), Click, 3);
-        lblStatus.getText();
+        updateMoney();
+//        lblStatus.getText();
     }
     
     private void addtoTable(){
@@ -932,10 +933,10 @@ class Sale extends javax.swing.JFrame implements Runnable {
 
     private String updateMoney(){
         int Click = tableBill.getSelectedRow();
-        DefaultTableModel model = (DefaultTableModel) tableBill.getModel();
+        TableModel model = tableBill.getModel();
         
         double t1 = convertedToNumbers(lbltotalMoney.getText());
-        double t2 = convertedToNumbers(model.getValueAt(Click , 0).toString());
+        double t2 = convertedToNumbers(model.getValueAt(Click , 3).toString());
         double t3 = convertedToNumbers(txbIntoMoney.getText());
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         return formatter.format(t1 - t2 + t3);
@@ -943,14 +944,25 @@ class Sale extends javax.swing.JFrame implements Runnable {
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
        String sqlChange = "UPDATE BillDetail SET Amount=? WHERE ID_Bill = '"+txbIDBill.getText()+"' AND ID_Drug = '" + txbIDDrug.getText()+"'";
         try{
+            
+            int Click = tableBill.getSelectedRow();
+            TableModel model = tableBill.getModel();
+
+            double t1 = convertedToNumbers(lbltotalMoney.getText());
+            double t2 = convertedToNumbers(model.getValueAt(Click , 3).toString());
+            
             pst = conn.prepareStatement(sqlChange);
             pst.setInt(1, Integer.parseInt(this.txbAmount.getText()));
-//            pst.setString(2, txbIDDrug.getText());
             pst.executeUpdate();
             lblStatus.setText("Lưu thay đổi thành công!");
+            double t3 = convertedToNumbers(txbIntoMoney.getText());
+            DecimalFormat formatter = new DecimalFormat("###,###,###");
             changeDrug();
+            lbltotalMoney.setText(formatter.format((t1-t2+t3)*1000));
             tableBill.clearSelection();
-            updateMoney();
+            
+            cbxComponent.setEnabled(true);
+//            LoadComponent();
             btnAdd.setEnabled(true);
             btnPay.setEnabled(true);
             btnNew.setEnabled(false);
@@ -971,6 +983,7 @@ class Sale extends javax.swing.JFrame implements Runnable {
         if(Click == JOptionPane.YES_OPTION){
             try{ 
                 lbltotalMoney.setText("0");
+                
                 clearTable();
                 btnAdd.setEnabled(true);
                 cbxComponent.removeAllItems();
