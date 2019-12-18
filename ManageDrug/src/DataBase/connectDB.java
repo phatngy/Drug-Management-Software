@@ -18,7 +18,7 @@ import java.sql.Statement;
  */
 public class connectDB {
     
-    private String connectionString = "jdbc:sqlserver://ANONYMOUS\\phatngy;databaseName=KTPMDatabase2;integratedSecurity=true";
+    private String connectionString = "jdbc:sqlserver://ANONYMOUS\\phatngy;databaseName=KTPMDatabase1;integratedSecurity=true";
     public Connection conn;
     public connectDB(){
        

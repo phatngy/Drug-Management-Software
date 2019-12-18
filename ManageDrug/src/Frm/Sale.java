@@ -312,6 +312,18 @@ class Sale extends javax.swing.JFrame implements Runnable {
         return arry.replaceAll("\\D+","");
     }
     
+    private void addBill(){
+        String sql = "INSERT INTO Bill (ID_Bill) VALUES (?)";
+        try{
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, String.valueOf(txbIDBill.getText()));
+            
+            pst.executeUpdate();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
     private void addDrug() {
         if(checkNull()){
             String sqlInsert = "INSERT INTO BillDetail (ID_Bill, ID_Drug, Amount) VALUES(?,?,?)";
@@ -923,9 +935,12 @@ class Sale extends javax.swing.JFrame implements Runnable {
 
     private void btnCheckIDBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckIDBillActionPerformed
         if(CheckBill()){
+            
             lblStatus.setText("Hoá Đơn Khả Dụng");
+            addBill();
             txbIDBill.setEnabled(false);
             btnCheckIDBill.setEnabled(false);
+            
         }
         else{
             lblStatus.setText("Hoá Đơn Tồn Tại! Hãy Nhập Lại!!");
@@ -1017,16 +1032,16 @@ class Sale extends javax.swing.JFrame implements Runnable {
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         
         if(tableBill.getRowCount()!=0){
-            String sqlInsert = "INSERT INTO Bill (ID_Bill, ID_NV, Time, Date, Total) VALUES(?,?,?,?,?)";
+            String sqlInsert = "UPDATE Bill SET ID_NV = ?,  Time = ?, Date = ?, Total = ?  WHERE ID_Bill = ?";
             String ID_NV = getID_NV();
             try{
 
                 pst = conn.prepareStatement(sqlInsert);
-                pst.setString(1, String.valueOf(txbIDBill.getText()));
-                pst.setString(2, ID_NV);
-                pst.setString(3, lblTime.getText());
-                pst.setDate(4,new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(lblDate.getText()).getTime()));
-                pst.setString(5, lbltotalMoney.getText());
+                pst.setString(1, ID_NV);
+                pst.setString(2, lblTime.getText());
+                pst.setDate(3,new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(lblDate.getText()).getTime()));
+                pst.setString(4, lbltotalMoney.getText());
+                pst.setString(5, String.valueOf(txbIDBill.getText()));
                 pst.executeUpdate();
                 lblStatus.setText("Thanh Toán Và Thêm Hoá Đơn Thành Công!");
 

@@ -81,6 +81,7 @@ public class EmployeesManagement extends javax.swing.JFrame {
         txbAddress.setEnabled(false);
         txbEmail.setEnabled(false);
         btn.setEnabled(false);
+        lblStatus.setText("Trạng Thái!");
     }
     
     private void Refresh(){
@@ -212,8 +213,8 @@ public class EmployeesManagement extends javax.swing.JFrame {
                 pst.setString(12, pass.getText());
                 pst.executeUpdate();
                 Refresh();
-                lblStatus.setText("Thêm nhân viên thành công!");
                 Disabled();
+                lblStatus.setText("Thêm nhân viên thành công!");
                 
                 Load(sql);
             }
@@ -228,7 +229,7 @@ public class EmployeesManagement extends javax.swing.JFrame {
         TableModel model = tableEmployees.getModel();
         
         if(checkNull()){
-            String sqlChange = "UPDATE NhanVien SET Position=?, ID_NV=?, FullName=?, Level=?, Birthday=?, Sex=?, Address=?,Phone=?, Mail=?, Payroll=? WHERE ID_NV='"+model.getValueAt(Click,1).toString().trim()+"'";;
+            String sqlChange = "UPDATE Employee SET Position=?, ID_NV=?, FullName=?, Level=?, Birthday=?, Sex=?, Address=?,Phone=?, Mail=?, Payroll=? WHERE ID_NV='"+model.getValueAt(Click,0).toString().trim()+"'";;
             try{
                 pst=conn.prepareStatement(sqlChange);
                 pst.setString(1, (String)cbxPosition.getSelectedItem());
@@ -240,11 +241,11 @@ public class EmployeesManagement extends javax.swing.JFrame {
                 pst.setString(7, this.txbAddress.getText());
                 pst.setString(8, txbPhone.getText());
                 pst.setString(9, txbEmail.getText());
-                pst.setString(10, txbPayroll.getText() +" "+"VND");
+                pst.setString(10, txbPayroll.getText());
                 pst.executeUpdate();
-                lblStatus.setText("Lưu thay đổi thành công!");
                 Disabled();
                 Refresh();
+                lblStatus.setText("Lưu thay đổi thành công!");
                 Load(sql);
             }
             catch(Exception ex){
@@ -774,9 +775,10 @@ public class EmployeesManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblStatus))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(lblStatus)
+                .addContainerGap())
         );
 
         pack();
