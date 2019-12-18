@@ -296,9 +296,8 @@ public class Home extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btnBillActionPerformed
 
     private void btnRevenue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevenue1ActionPerformed
-        Revenue payroll = new Revenue(detail);
-        this.setVisible(false);
-        payroll.setVisible(true);
+        JOptionPane.showMessageDialog(null, "Chức Năng Đang Được Hoàn Thiện, Sẽ Có Vào Bản Update Sau!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        this.setVisible(true);
     }//GEN-LAST:event_btnRevenue1ActionPerformed
 
     /**
