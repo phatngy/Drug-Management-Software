@@ -62,9 +62,6 @@ public class BillDetail extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableDetail = new javax.swing.JTable();
-        btnChangeBillDetail = new javax.swing.JButton();
-        btnDelDrug = new javax.swing.JButton();
-        lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,20 +85,6 @@ public class BillDetail extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableDetail);
 
-        btnChangeBillDetail.setText("Load Đơn Thuốc");
-
-        btnDelDrug.setText("Xoá Thuốc");
-        btnDelDrug.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelDrugActionPerformed(evt);
-            }
-        });
-
-        lblStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatus.setText("Trạng Thái");
-        lblStatus.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,22 +92,12 @@ public class BillDetail extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnChangeBillDetail)
-                                    .addComponent(btnDelDrug, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(206, 206, 206)
-                                .addComponent(jLabel34)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(206, 206, 206)
+                        .addComponent(jLabel34)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,14 +105,7 @@ public class BillDetail extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnChangeBillDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDelDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblStatus)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -149,36 +115,6 @@ public class BillDetail extends javax.swing.JFrame {
     private void tableDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDetailMouseClicked
 
     }//GEN-LAST:event_tableDetailMouseClicked
-
-    private void DelDrug(String ID){
-        int Click = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa loại thuốc này khỏi hóa đơn hay không?", "Thông Báo",2);
-        if(Click == JOptionPane.YES_OPTION){
-            
-            String sqlDelete = "DELETE FROM BillDetail WHERE ID_Drug = ? and ID_Bill = ?";
-            try{
-                
-                PreparedStatement pst = conn.prepareStatement(sqlDelete);
-                pst.setString(1, String.valueOf(txbIDDrug.getText()));
-                pst.setString(2, ID);
-                pst.executeUpdate();
-                this.lblStatus.setText("Xóa thành công!");
-                
-                
-                DefaultTableModel model = (DefaultTableModel) tableDetail.getModel();
-                int SelectedRow = tableDetail.getSelectedRow();
-                model.removeRow(SelectedRow);
-                tableDetail.clearSelection();
-                
-
-            }
-            catch(Exception ex){
-                ex.printStackTrace();
-            }
-        }
-    }
-    private void btnDelDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelDrugActionPerformed
-        
-    }//GEN-LAST:event_btnDelDrugActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,11 +153,8 @@ public class BillDetail extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChangeBillDetail;
-    private javax.swing.JButton btnDelDrug;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblStatus;
     private javax.swing.JTable tableDetail;
     // End of variables declaration//GEN-END:variables
 }

@@ -333,11 +333,11 @@ class Sale extends javax.swing.JFrame implements Runnable {
     }
     private String TotalMoneyAdd(){
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        return formatter.format(convertedToNumbers(txbIntoMoney.getText())*1000+convertedToNumbers(lbltotalMoney.getText())*1000);
+        return formatter.format((convertedToNumbers(txbIntoMoney.getText()) + convertedToNumbers(lbltotalMoney.getText())));
     }
     private String TotalMoneySub(){
             DecimalFormat formatter = new DecimalFormat("###,###,###");
-            return formatter.format(convertedToNumbers(lbltotalMoney.getText())*1000 - convertedToNumbers(txbIntoMoney.getText())*1000);
+            return formatter.format((convertedToNumbers(lbltotalMoney.getText()) - convertedToNumbers(txbIntoMoney.getText())));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -910,7 +910,10 @@ class Sale extends javax.swing.JFrame implements Runnable {
                 model.removeRow(SelectedRow);
                 tableBill.clearSelection();
                 
-
+                btnAdd.setEnabled(true);
+                btnPay.setEnabled(true);
+                btnNew.setEnabled(false);
+                
             }
             catch(Exception ex){
                 ex.printStackTrace();
@@ -939,7 +942,7 @@ class Sale extends javax.swing.JFrame implements Runnable {
         double t2 = convertedToNumbers(model.getValueAt(Click , 3).toString());
         double t3 = convertedToNumbers(txbIntoMoney.getText());
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        return formatter.format(t1 - t2 + t3);
+        return formatter.format((t1 - t2 + t3));
     }
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
        String sqlChange = "UPDATE BillDetail SET Amount=? WHERE ID_Bill = '"+txbIDBill.getText()+"' AND ID_Drug = '" + txbIDDrug.getText()+"'";
