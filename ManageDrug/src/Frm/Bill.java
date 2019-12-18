@@ -32,7 +32,6 @@ public class Bill extends javax.swing.JFrame {
     }   
     
     private void Disbled(){
-        btnChangeBill.setEnabled(false);
         btnDelBill.setEnabled(false);
         btnShow.setEnabled(false);
     
@@ -76,11 +75,12 @@ public class Bill extends javax.swing.JFrame {
         tableBill = new javax.swing.JTable();
         lblStatus = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        btnChangeBill = new javax.swing.JButton();
         btnDelBill = new javax.swing.JButton();
         btnShow = new javax.swing.JButton();
+        btnBackHome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         tableBill.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tableBill.setModel(new javax.swing.table.DefaultTableModel(
@@ -88,7 +88,7 @@ public class Bill extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_Bill", "ID_NV", "Total", "Time", "Date"
+                "Số Hoá Đơn", "ID Nhân Viên", "Tổng tiền", "Giờ Lập", "Ngày Lập"
             }
         ));
         tableBill.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,13 +107,6 @@ public class Bill extends javax.swing.JFrame {
         jLabel35.setForeground(new java.awt.Color(51, 102, 255));
         jLabel35.setText("Bảng Hóa Đơn");
 
-        btnChangeBill.setText("Load Hoá Đơn");
-        btnChangeBill.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeBillActionPerformed(evt);
-            }
-        });
-
         btnDelBill.setText("Xoá Hoá Đơn");
         btnDelBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +118,19 @@ public class Bill extends javax.swing.JFrame {
         btnShow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnShowActionPerformed(evt);
+            }
+        });
+
+        btnBackHome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnBackHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BackMini.png"))); // NOI18N
+        btnBackHome.setAlignmentY(0.0F);
+        btnBackHome.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnBackHome.setContentAreaFilled(false);
+        btnBackHome.setFocusPainted(false);
+        btnBackHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBackHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackHomeMouseClicked(evt);
             }
         });
 
@@ -142,27 +148,29 @@ public class Bill extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnChangeBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDelBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelBill, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                             .addComponent(btnShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(332, 332, 332)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnBackHome, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(233, 233, 233)
                         .addComponent(jLabel35)))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel35))
+                    .addComponent(btnBackHome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnChangeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelBill, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDelBill, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblStatus)
@@ -170,16 +178,13 @@ public class Bill extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBillMouseClicked
         btnShow.setEnabled(true);
         btnDelBill.setEnabled(true);
     }//GEN-LAST:event_tableBillMouseClicked
-
-    private void btnChangeBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeBillActionPerformed
-        loadBill();
-    }//GEN-LAST:event_btnChangeBillActionPerformed
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
         int Click1 = tableBill.getSelectedRow();
@@ -211,8 +216,19 @@ public class Bill extends javax.swing.JFrame {
             catch(Exception ex){
                 ex.printStackTrace();
             }
+            loadBill();
+            Disbled();
         }
     }//GEN-LAST:event_btnDelBillActionPerformed
+
+    private void btnBackHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackHomeMouseClicked
+
+            Home home = new Home(new Detail("Nguyen Van Phat", "Admin"));
+            this.setVisible(false);
+            home.setVisible(true);
+
+        
+    }//GEN-LAST:event_btnBackHomeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -250,7 +266,7 @@ public class Bill extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChangeBill;
+    private javax.swing.JButton btnBackHome;
     private javax.swing.JButton btnDelBill;
     private javax.swing.JButton btnShow;
     private javax.swing.JLabel jLabel35;
