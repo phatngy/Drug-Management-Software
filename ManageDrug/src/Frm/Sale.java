@@ -1005,17 +1005,9 @@ class Sale extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-
-        try {
-            JasperReport report = JasperCompileManager.compileReport("");
-
-            JasperPrint print = JasperFillManager.fillReport(report, null, conn);
-
-            JasperViewer.viewReport(print,false);
-        }
-        catch (JRException ex) {
-            ex.printStackTrace();
-        }
+        
+        JOptionPane.showMessageDialog(null, "Chức Năng Đang Được Hoàn Thiện, Sẽ Có Vào Bản Update Sau!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        this.setVisible(true);
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void clearTable(){

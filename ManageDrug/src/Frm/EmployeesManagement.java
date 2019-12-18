@@ -925,12 +925,10 @@ public class EmployeesManagement extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int Click = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa nhân viên hay không?", "Thông Báo",2);
         if(Click==JOptionPane.YES_OPTION){
-            String sqlDelete="DELETE FROM NhanVien WHERE EmployeeCode=? AND FullName=? AND Phone=? ";//
+            String sqlDelete="DELETE FROM Employee WHERE ID_NV = ?";//
             try{
                 pst=conn.prepareStatement(sqlDelete);
                 pst.setString(1, String.valueOf(this.txbCode.getText()));
-                pst.setString(2, txbName.getText());
-                pst.setString(3, txbPhone.getText());
                 pst.executeUpdate();
 
                 Disabled();
