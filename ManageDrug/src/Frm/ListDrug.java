@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
@@ -189,7 +190,24 @@ public class ListDrug extends javax.swing.JFrame {
         }
         return kq;
     }
-    
+    private String Get_IDDrug(String s){
+        String sql = "SELECT * FROM MainComponent WHERE NameMainComponent = '" + s + "'";
+        String ID = null;
+            
+        try{
+            Statement st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+                ID = rs.getString("ID_Component").trim();
+                
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return ID;
+        
+        
+        
+    }
     private void addDrug(){
         if(checkNull()){
             String sqlInsert = "INSERT INTO Drug (ID_Drug , NameDrug, MainComponent, Expiry, Quantity, Unit, Price) VALUES(?,?,?,?,?,?,?)";
@@ -197,7 +215,7 @@ public class ListDrug extends javax.swing.JFrame {
                 pst=conn.prepareStatement(sqlInsert);
                 pst.setString(1, (String)txbID.getText());
                 pst.setString(2, (String)txbName.getText());
-                pst.setString(3, String.valueOf(this.cbxComponent.getSelectedItem()));
+                pst.setString(3, Get_IDDrug(String.valueOf(this.cbxComponent.getSelectedItem())));
                 pst.setDate(4, new java.sql.Date(date.getDate().getTime()));
                 pst.setInt(5, Integer.parseInt(txbQuantity.getText()));
                 pst.setString(6, String.valueOf(this.txbUnit.getText()));
