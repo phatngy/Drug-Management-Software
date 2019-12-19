@@ -1070,7 +1070,7 @@ class Sale extends javax.swing.JFrame implements Runnable {
             home.setVisible(true);
         }
         else{
-            HomeUser home=new HomeUser(detail);
+            HomeUser home = new HomeUser(detail);
             this.setVisible(false);
             home.setVisible(true);
         }

@@ -76,7 +76,6 @@ public class Home extends javax.swing.JFrame implements Runnable {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setUndecorated(true);
 
         lblSoftwareName.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
         lblSoftwareName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
