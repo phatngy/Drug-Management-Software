@@ -51,25 +51,19 @@
                       <Component id="lblSoftwareName" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnData" min="-2" pref="128" max="-2" attributes="0"/>
-                              <Component id="btnRevenue1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnRevenue1" max="32767" attributes="0"/>
+                              <Component id="btnData" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnSale" min="-2" pref="141" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                  <Component id="btnEmployeesManagement" min="-2" pref="141" max="-2" attributes="0"/>
-                                  <EmptySpace pref="59" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="btnBill" min="-2" pref="141" max="-2" attributes="0"/>
+                              <Component id="btnEmployeesManagement" min="-2" pref="141" max="-2" attributes="0"/>
+                              <Component id="btnSale" min="-2" pref="141" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="59" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnProduct" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="btnBill" min="-2" pref="141" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -101,9 +95,8 @@
                       <Component id="btnRevenue1" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnBill" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lblRun" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="lblRun" pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
